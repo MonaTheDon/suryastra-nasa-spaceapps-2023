@@ -1,10 +1,10 @@
-# magnetic_reconnection_space_app
+# SuryAstra-Magnetic-Reconnection
 
 A new Flutter project.
 
 ## Getting Started
+Team SuryAstra has developed a computer program and mobile application called "SuryAstra" that analyzes interplanetary magnetic field (IMF) data from ACE, WIND, and DSCOVR missions between 1998 and 2020. This software identifies magnetic reconnection events, calculates their frequency, and presents statistical and spectral analyses in accessible visualizations. This project enhances our understanding of space weather and its impact by assessing the risk of solar wind entering Earth's geospace environment during IMF-Earth magnetic reconnections. Valuable for space agencies, researchers, and policymakers, "SuryAstra" aids in preparing for and mitigating space weather effects on satellite systems and Earth's power infrastructure, ensuring their safety and reliability.
 
-This project is a starting point for a Flutter application.
 
 A few resources to get you started if this is your first Flutter project:
 
