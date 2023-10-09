@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magnetic_reconnection_space_app/common_widgets.dart';
+import 'package:magnetic_reconnection_space_app/features/mr_daily_lives/widgets/dateEffect.dart';
 import 'package:magnetic_reconnection_space_app/features/mr_daily_lives/widgets/how_often.dart';
 
 class DailyLives extends StatefulWidget {
@@ -94,7 +95,7 @@ class _DailyLivesState extends State<DailyLives> {
                 ],
               ),
               verticalSpace(36.h),
-              _isHowOftenSelected ? const HowOften() : SizedBox()
+              _isHowOftenSelected ? const HowOften() : DateEffect()
             ],
           ),
         ),

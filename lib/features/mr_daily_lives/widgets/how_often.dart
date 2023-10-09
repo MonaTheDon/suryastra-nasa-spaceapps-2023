@@ -16,7 +16,6 @@ class HowOften extends StatefulWidget {
 class _HowOftenState extends State<HowOften> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -68,14 +67,14 @@ class _HowOftenState extends State<HowOften> {
                 onChanged: (newValue) {
                   setState(() {
                     dailyLivesProvider.year = newValue!;
-                    if (dailyLivesProvider.year != "") {
-                      fetchDataForYear();
-                    }
-                    if (dailyLivesProvider.month != "" &&
-                        dailyLivesProvider.year != "") {
-                      fetchData();
-                    }
                   });
+                  if (dailyLivesProvider.year != "") {
+                    fetchDataForYear();
+                  }
+                  // if (dailyLivesProvider.month != "" &&
+                  //     dailyLivesProvider.year != "") {
+                  //   fetchData();
+                  // }
                 },
                 items: dailyLivesProvider.years
                     .map<DropdownMenuItem<String>>((String value) {
@@ -189,16 +188,19 @@ class _HowOftenState extends State<HowOften> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Container(
-                        width: double.infinity,
-                        height: 180.h,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image:
-                                NetworkImage(dailyLivesProvider.yearImageUrl),
-                          ),
-                        ),
-                      ),
+                      (dailyLivesProvider.yearImageUrl != "")
+                          ? Container(
+                              width: double.infinity,
+                              height: 180.h,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: NetworkImage(
+                                      dailyLivesProvider.yearImageUrl),
+                                ),
+                              ),
+                            )
+                          : const CircularProgressIndicator(
+                              color: Colors.white),
                     ],
                   )
                 : const SizedBox(),

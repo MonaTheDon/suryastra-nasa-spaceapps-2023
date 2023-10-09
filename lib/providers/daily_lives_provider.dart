@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -9,8 +10,11 @@ class DailyLivesProvider extends ChangeNotifier {
   String _year = "";
   int _magneticReconnectionValue = -1;
   String _monthYearImageUrl = "";
+  String _date = "";
   String _yearImageUrl = "";
   bool _isFetchingData = false;
+  bool _isFetchingData2 = false;
+  bool _isFetchingData3 = false;
 
   final List<String> _months = [
     "January",
@@ -54,6 +58,9 @@ class DailyLivesProvider extends ChangeNotifier {
   String get yearImageUrl => _yearImageUrl;
   Map<String, int> get monthValueMap => _monthValueMap;
   bool get isFetchingData => _isFetchingData;
+  bool get isFetchingData2 => _isFetchingData2;
+  bool get isFetchingData3 => _isFetchingData3;
+  String get date => _date;
 
   set month(String value) {
     _month = value;
@@ -62,6 +69,11 @@ class DailyLivesProvider extends ChangeNotifier {
 
   set year(String value) {
     _year = value;
+    notifyListeners();
+  }
+
+  set date(String value) {
+    _date = value;
     notifyListeners();
   }
 
@@ -79,6 +91,7 @@ class DailyLivesProvider extends ChangeNotifier {
         int countOfOnes =
             dailyCounts.values.where((element) => element == 1).length;
         _magneticReconnectionValue = countOfOnes;
+        notifyListeners();
       }
     } catch (e) {
       log("There was an error in getPlotForMonthYear function in DailyLivesProvider${e.toString()}");
@@ -90,7 +103,9 @@ class DailyLivesProvider extends ChangeNotifier {
 
   Future<void> getPlotForYear(int year) async {
     try {
-      _isFetchingData = true;
+      _isFetchingData2 = true;
+      _yearImageUrl = "";
+
       notifyListeners();
       final response = await http.get(Uri.parse(
           "https://altmxx.pythonanywhere.com/generate_plot_and_get_counts/$year"));
@@ -98,6 +113,7 @@ class DailyLivesProvider extends ChangeNotifier {
         Map<String, dynamic> jsonResponseMap = jsonDecode(response.body);
         // Map<String, dynamic> dailyCounts = jsonResponseMap['monthly_counts'];
         _yearImageUrl = jsonResponseMap['upload_url'];
+        notifyListeners();
         log("Year Image URL is $_yearImageUrl");
         // int countOfOnes =
         //     dailyCounts.values.where((element) => element == 1).length;
@@ -106,8 +122,30 @@ class DailyLivesProvider extends ChangeNotifier {
     } catch (e) {
       log("There was an error in getPlotForYear function in DailyLivesProvider${e.toString()}");
     } finally {
-      _isFetchingData = false;
+      _isFetchingData2 = false;
       notifyListeners();
+    }
+  }
+
+  Future<bool?> checkMRonGivenDate(String date) async {
+    try {
+      _isFetchingData3 = true;
+      notifyListeners();
+      final response = await http.get(Uri.parse(
+          "https://altmxx.pythonanywhere.com/check_mr_value_on_given_date?date=$date"));
+      log(response.statusCode.toString());
+      if (response.statusCode == 200) {
+        Map<String, dynamic> jsonResponseMap = jsonDecode(response.body);
+        notifyListeners();
+        log("The json response map in checkMROnGivenDate is: ${jsonResponseMap.toString()}");
+        return jsonResponseMap["result"];
+      }
+    } catch (e) {
+      log("Exception in checkMRonGivenDate function: ${e.toString()}");
+    } finally {
+      _isFetchingData3 = false;
+      // Return null to satisfy the nullable return type
+      // return null;
     }
   }
 }
