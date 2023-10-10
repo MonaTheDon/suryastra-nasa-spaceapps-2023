@@ -81,7 +81,7 @@ class HomeScreen extends StatelessWidget {
             verticalSpace(34.h),
             const TextContainer(
                 containerText:
-                    "These magnetic dances are not exclusive to Earth; they are cosmic occurrences shaping the behavior of stars, planets, and other celestial bodies. As we delve deeper into the mysteries of magnetic reconnection, we gain a better understanding of the cosmic rhythms that govern the vastness of space."),
+                    "Auroras, the colorful lights in Earth's polar skies, are caused by solar plasma ejected during magnetic events, like flares or coronal mass ejections from the Sun. This plasma, carried by the solar wind, interacts with Earth's magnetic field, traveling along field lines to the poles. Interaction with atoms in the upper atmosphere produces the mesmerizing auroras."),
             verticalSpace(34.h),
           ],
         ),
