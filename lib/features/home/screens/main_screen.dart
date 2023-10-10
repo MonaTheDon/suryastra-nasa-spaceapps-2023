@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magnetic_reconnection_space_app/constants.dart';
 import 'package:magnetic_reconnection_space_app/features/home/screens/home_screen.dart';
 import 'package:magnetic_reconnection_space_app/features/mr_daily_lives/screens/daily_lives_screen.dart';
+import 'package:magnetic_reconnection_space_app/features/spectral_analysis/analysis_screen.dart';
 
 int currentIndex = 0;
 
@@ -26,6 +27,7 @@ class _MainScreenState extends State<MainScreen> {
           children: const [
             HomeScreen(),
             DailyLives(),
+            AnalysisScreen(),
           ],
         ),
       ),
@@ -57,7 +59,9 @@ class _MainScreenState extends State<MainScreen> {
                 BottomNavigationBarItem(
                   icon: Icon(Icons.dashboard),
                   label: "Dashboard",
-                )
+                ),
+                BottomNavigationBarItem(icon: Icon(Icons.analytics),
+                label: "Analytics")
               ],
             ),
           )
