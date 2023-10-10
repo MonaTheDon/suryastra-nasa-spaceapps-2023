@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:magnetic_reconnection_space_app/common_widgets.dart';
 import 'package:magnetic_reconnection_space_app/constants.dart';
 import 'package:magnetic_reconnection_space_app/providers/daily_lives_provider.dart';
@@ -159,6 +160,9 @@ class _DateEffectState extends State<DateEffect> {
               }
               if (int.parse(yearController.text) < 1998 ||
                   int.parse(yearController.text) > 2020) {
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text(
+                        "Please enter date between 1998 Mid March and 2020 September End")));
                 return;
               }
               var date =
